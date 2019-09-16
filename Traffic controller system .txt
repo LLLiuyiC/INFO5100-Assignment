@@ -1,0 +1,63 @@
+Traffic controller system can
+1.Get the alert message
+2.Search the alert message
+3.Adjust the traffic light model
+ 
+
+
+———————————————————————————-
+
+
+Class:Traffic controller
+State:controllerID, alertNumber, criticalNumber
+Behavior :
+searchAlertMessage(Location){
+
+Int alertNumber = 0;
+for(i=0;i<alert.size();i++){
+
+While getAlertMessage.getLocation.compareTo(Location) {
+
+alertNumber ++;
+
+}
+Return alertNumber;
+                                      }
+}
+Behavior:
+getAlertMessage(){};
+Behavior:
+adjustTrafficModel(){
+
+If (trafficController.getAlertNumber > criticalNumber ){
+trafficModel =1;
+}
+}
+
+Behavior:
+setCriticalNumber(){};
+
+
+
+Class:Traffic Model
+Status:greenTime, greenTimeWhileJunction, greenTimeUsually, trafficModel
+Behavior:
+setGreenTime(trafficModel){
+If (trafficModel=1){
+greenTime = greenTimeWhileJunction;
+}
+greenTime = greenTimeUsually;
+
+}
+Behavior:
+SetGreenTimeWhileJunction(){};
+Behavior:
+SetGreenTimeUsually(){};
+
+
+Class:Driver
+State:carNumber, phoneNumber, name, licenseNumber, location
+Behavior : 
+getLocation(){
+}
+sendAlertMessage(location, carNumber, phoneNumber, name, licenseNumber){}

@@ -1,0 +1,53 @@
+Car rental system
+
+Tenant can
+1.Login
+2.search cars based on parameters(type, brands, years, capacity and price)
+3.book cars
+4.cancel cars
+
+—————————————————————————
+Class:Tenant
+State:licenseID, name, phoneNumber, licenseDetails, CreditCardDetails
+Behavior :
+SearchCars(SearchParameters){
+List<Cars> cars = CarsService.search(SearchParameters);
+}
+Behavior :
+bookCars(){
+BookingDetails = CarService.bookCar(carID, pickupDate, returnDate, pickupLocation, returnLocation)
+}
+Behavior :
+cancelCar(bookingID){
+CarService.cancelCar(bookingID)
+}
+
+Class:CreditCardDetails
+State:CreditCardNumber, name, expiryDate, cardType
+Behavior :
+isCardExpired(){
+Date today = new Date();
+if(today.compareTo(expiryDate) >= 0)
+Return true;
+Return false;
+}
+
+
+Class:CarService
+Behavior :
+search(searchParameters){
+List<Cars> cars
+}
+
+Behavior :
+bookCar(carID, pickupDate, returnDate){
+Car car;
+Int numberOfDays;
+
+Int price = car.price * numberOfDays;
+paymentService.makePayment(licenseID, price )
+}
+
+Behavior :cancelCar(bookingID{
+PaymentService.refund(creditCardNumber, price)
+})

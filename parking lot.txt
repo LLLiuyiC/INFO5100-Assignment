@@ -1,0 +1,74 @@
+Parking lot
+
+Driver can:
+1.Search for available parking space
+2.reserve parking space
+3.cancel reservation
+
+—————————————————
+Class: driver
+State: name, licenseID, phoneNumber, creditCardDetails
+behavior:
+searchParkingSpace(searchParameters){
+List<ParkingSpace> parkingSpace = parkingService.search(SearchParameters); 
+}
+Behavior:
+reserveParkingSpace(){
+reserveDetails = parkingService.reserveSpace(spaceID, startTime, endTime)
+}
+Behavior:
+cancelReservation(reserveID){
+}
+
+Class:parkingLot
+State:parkingLotID, spaceID, totalSpace, price
+Behavior:
+checkAvailability(time){
+
+} 
+
+Class creditCardDetails
+State:cardType, cardNumber, name, expiryDate
+Behavior:
+isCardExpired(){
+Date today = new Date();
+if(today.compareTo(expiryDate) >= 0)
+Return true;
+Return false;
+
+}
+
+
+Class parkingService
+Behavior:
+search(SearchParameters){
+List <parkingLot> parkingLot{
+for(i=0; i<parkingLot.size; i++){
+
+If ( parkingLot.checkAvailability(searchParameters.startTime, searchParameters.endTime)){
+availableParkingLot.add(parkingLot.get(i))
+}
+}
+}
+}
+
+Behavior:
+reserveParkingSpace(parkingLotID, startTime, endTime){
+ParkingLot parkingLot;
+Int parkingTime;
+
+if(!creditCardDetails.isCardExpired()){
+Int price = parking.Lot.price * parkingTime;
+paymentService.makePayment(licenseID, price);
+Return reservationDetails;
+And generate reserveID;
+} 
+Else throw new exception(“Card is expired!”);
+}
+
+Behavior:
+cancelReservation(reserveID){
+paymentService.refund(licenseID, price);
+
+}
+

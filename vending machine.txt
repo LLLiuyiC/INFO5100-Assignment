@@ -1,0 +1,66 @@
+Vending machine
+
+Machine can
+1.recognize the value of coins
+2.calculate the amount of the coins
+3.recognize which snack/drink customer want
+4. Decide to give snack/drink or refuse
+5.give change
+
+—————————————————
+Class:machine
+State:machineID, location, availableCoin, supplyProduct
+Behavior
+recognizeCoin(){
+//recognize the value of each coin
+
+Return coinValue;
+}
+Behavior
+calculateCoinsAmount(){
+
+Int sum = 0;
+for(i=0; i < coins.size; i++){
+
+Sum = sum + recognizeCoin.getCoinValue();
+
+}
+return sum;
+}
+
+Behavior
+recognizeProduct(){
+//recognize
+return productID; 
+}
+
+Behavior:
+supplyProduct(productID, coinsAmount){
+
+If  (product.getRemainNumber() >0){
+     if(coinsAmount >= product.price){
+          Supply the product
+         }
+         Else  
+        Throw new Exception(“the price of this product is” + product.price);
+
+
+}
+Else  
+Throw new Exception(“sold out!”);
+}
+
+behavior :
+giveChange(productPrice, coinsAmount){
+Int changeAmount = coinsAmount - productPrice;
+Return changeAmount;
+}
+Class:product
+States:price, remainNumber
+
+Class:customer 
+States:Name, coinNumber, productID
+Behavior:
+selectProduct{
+//select the product they want
+}

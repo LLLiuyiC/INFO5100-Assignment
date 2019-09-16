@@ -1,0 +1,67 @@
+Course Registration Platform
+
+Student can
+1.login
+2.search courses based on parameters(major, location, semester, courseName )
+3.add courses
+4.drop courses
+
+————————————-
+Class:Student
+State:studentID, name, major, gender, age, phoneNumber, emailAdress
+Behavior:
+searchCourses(SearchParameters){
+List<Courses> courses = CoursesRegistration.search(searchParameters);
+} 
+
+Behavior:
+addCourse(){
+addDetails = CoursesRegistration.addCourse( courseID ,courseName, semester);
+}
+
+Behavior:
+dropCourses(registrationID){
+CoursesRegistration.dropCourse(registrationID)
+}
+
+Class:course 
+State: courseID, courseName, courseLocation, courseSemester, courserRemainingCapacity
+Behavior:
+checkAvailability(courseSemester, courseRemainingCapacity){
+}
+
+Class:CoursesRegistration
+
+Behavior:
+search(searchParameters){
+List<Courses> courses
+
+for( i = 0;i < courses.size; i++){
+//check if capacity of course is enough
+
+
+if(searchParameters.get(i).courseRemainingCapacity > 0  && searchParameters.get(i).courseSemester.CompareTo(Student.getSemester()))
+
+availableCourses.add(courses.get(i));
+}
+Return availableCourses;
+}
+
+Behavior:
+addCourses(courseID, courseRemainingCapacity, StudentID){
+
+Int num = courseRegistration.getCourseRemainingCapacity()
+if(course.checkAvailability()){
+num —;
+return registrationDetails;
+And generate registration id; 
+}
+else
+throw new Exception(“The course is full”);  
+}
+
+behavior :
+dropCourses(registrationID){
+courseRegistration.setCourseRemainingCapacity ++;
+}
+
