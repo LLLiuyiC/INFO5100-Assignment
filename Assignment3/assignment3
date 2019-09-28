@@ -1,0 +1,364 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+/*Q1-Q4 */
+public class Course{
+    int courseId;
+    String    courseName;
+    int maxCapacity;
+    int professorId;
+    int credits;
+    int[] studentIds;
+
+    //store all ids in studentIds array ????????????????
+    public void registerStudent(int studentId){
+        if(studentIds ==null){
+            int[] studentIds = new int[]{studentId};
+        }
+        else{
+            int[] x = new int[studentIds.length +1];
+            for (int i =0;i<x.length-1;i++){
+                x[i] = studentIds[i];
+            }
+            x[x.length-1] = studentId;
+            this.studentIds = x;
+        }
+
+    }
+
+    //3 ways to create Course Object
+    public Course(int a){
+        if(a <= 0){
+            throw new IllegalArgumentException("course ID should not be 0 or negative!");
+        }
+        else{
+            courseId = a;}
+    }
+    public Course(int a,int b){
+        if(a <= 0  || b<100000 || b >999999){
+            throw new IllegalArgumentException("course ID should not be 0 or negative and professor ID should be a six digit integer!");
+        }
+        else{
+            courseId = a;
+            professorId = b;}
+    }
+    public Course(int a,int b,int c){
+        if(a <= 0  || b<100000 || b >999999 ||credits<=0 ||credits>9){
+            throw new IllegalArgumentException("course ID should not be 0 or negative , professor ID should be a six digit integer credits<=0 ||credits>9!");
+        }
+        else{
+            courseId = a;
+            professorId = b;
+            credits = c;}
+    }
+
+    // provide getters/setters for all members
+    public int getCourseId(){
+        return courseId;
+    }
+    public  void setCourseId(int courseId)  {
+        if(courseId <= 0){
+            throw new IllegalArgumentException("course ID should not be 0 or negative!");
+        }
+        else
+        {this.courseId = courseId;}
+    }
+    public  String getCourseName(){
+        return courseName;
+    }
+    public void setCourseName(String courseName){
+        if(courseName.length()<10 || courseName.length() >60){
+            throw new IllegalArgumentException("Course name should be a string with minimum length 10 and maximum 60");
+        }
+        else
+        {this.courseName = courseName;}
+    }
+    public int getMaxCapacity(){
+        return maxCapacity;
+    }
+    public void  setMaxCapacity(int maxCapacity){
+        if(maxCapacity<10 ||maxCapacity>100){
+            throw new  IllegalArgumentException("maxCapacity should not be less than 10 greater than 100");
+        }
+        else{
+            this.maxCapacity = maxCapacity;}
+    }
+    public int getProfessorId(){
+        return  professorId;
+    }
+    public  void setProfessorId(int professorId){
+        if(professorId<100000 || professorId >999999){
+            throw new IllegalArgumentException("professor ID should be a six digit integer");
+        }
+        else{
+            this.professorId = professorId;}
+    }
+    public int getCredits(){
+        return  credits;
+    }
+    public void setCredits(int credits){
+        if(credits<=0 ||credits>9){
+            throw new  IllegalArgumentException("credits should be a single digit but greater than 0");
+        }
+        this.credits = credits;
+    }
+    public int[] getStudentIds(){
+        return studentIds;
+    }
+    public  void  setStudentIds(int[] studentIds){
+        this.studentIds = studentIds;
+    }
+           /*
+   Q3. Add a function called removeDuplicates in Course class
+This function should be called if course has reached the maximum capacity and
+remove all duplicate student Ids and return the new ids
+  */
+
+    public int[] removeDuplicates(int[] studentIds) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i=0;i<studentIds.length;i++){
+            if(!list.contains(studentIds[i]))
+            {
+                list.add(studentIds[i]);
+            }
+        }
+        int[] removeDuplicates = new int[list.size()];
+        for(int i = 0;i<list.size();i++){
+            removeDuplicates[i] = list.get(i);
+        }
+        return  removeDuplicates;
+    }
+
+    /*
+Q4.Implement the following method in Course class.
+*/
+    public int groupsOfStudents(int[] studentIds) {
+        int sum =0;
+        for(int i = 0;i< studentIds.length-1;i++ ){
+            for (int j = i+1;j<studentIds.length;j++){
+                if((studentIds[i] +studentIds[j])% 2 ==0){
+                    sum ++;
+                }
+            }
+        }
+        return sum;
+
+    } }
+
+/*Q5-Q10*/
+public class Assignment3 {
+
+    /*  Q5.
+    The count-and-say sequence is a sequence of integers with the first five terms as following:
+             */
+    public String countAndSay(int n) {
+        if(n<1 ||n>30){
+            throw  new IllegalArgumentException("n should be greater than 0 and smaller than 31!");
+        }
+        if(n==1){
+            return "1";
+        }
+        else{
+            String ass = countAndSay(n-1)+"@";
+            String str = "";
+            int count =1;
+            for(int i=0;i<ass.length()-1;i++){
+                if(ass.charAt(i)==ass.charAt(i+1)){
+                    count++;
+                }
+                else{
+                    str = str +count + ass.charAt(i);
+                    count=1;
+                }
+            }
+            return  str;
+        }
+
+    }
+    /*
+    Q6. Given an input string , reverse the string word by word.
+
+     */
+    public String reverseString(String str){
+        String[] a= str.split(" ");
+        String reverseString = new String();
+        for(int i = a.length-1; i>=0;i--){
+            reverseString += a[i] + " ";
+        }
+        reverseString = reverseString.replaceAll("\\s+$","");//remove the space at the end
+        return  reverseString;
+    }
+
+    /* Q7.
+     Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order. */
+
+
+     public int[] spiralOrder(int[][] matrix) {
+         int[] spiralOrder = new int[matrix.length*matrix[0].length];
+         int a = 0;
+         int m =matrix.length;
+         int n =matrix[0].length;
+         int left =0;
+         int right = n-1;
+         int top = 0;
+         int bottom = m-1;
+         while ( true){
+             for(int i = left;i<=right;i++){
+             spiralOrder[a] = matrix[top][i];
+             a++;
+             }
+             top++;
+             if(left>right|| top>bottom){
+                 break;
+             }
+             for(int i = top;i<=bottom;i++){
+                 spiralOrder[a] = matrix[i][right];
+                 a++;
+             }
+             right--;
+             if(left>right|| top>bottom){
+                 break;
+             }
+             for(int i = right;i>=left;i--){
+                 spiralOrder[a] = matrix[bottom][i];
+                 a++;
+             }
+             bottom--;
+             if(left>right|| top>bottom){
+                 break;
+             }
+             for (int i = bottom;i>=top;i--){
+                 spiralOrder[a] =matrix[i][left];
+                 a++;
+             }
+             left ++;
+             if(left>right|| top>bottom){
+                 break;
+             }
+
+         }
+         return spiralOrder;
+
+     }
+     /*
+     Q8.
+
+And then read line by line: "PAHNAPLSIIGYIR"
+Write the code that will take a string and make this conversion given a number of rows:
+
+      */
+    public String  convert(String s, int numRows) {
+        if (numRows < 2) {
+            throw new IllegalArgumentException("n should be larger than 1");
+        } else {
+            int quo = s.length()/numRows;
+            int maxNumCols = quo*(numRows-1)  +1;//calculate the possible largest number of columns
+
+            char[][] matrix = new char[maxNumCols][numRows];
+            int len = 0;
+            int row = 0;
+            while (len < s.length()) {
+                for (int i = 0; i < numRows; i++) {
+                    if (len >= s.length()) {
+                        break ;
+                    }
+                    matrix[row][i] = s.charAt(len);
+                    len++;
+                    System.out.println(matrix[row][i]);
+
+                }
+                row++;
+
+                for (int j = numRows - 2; j >= 1; j--) {
+                    if (len >= s.length()) {
+                        break;
+                    }
+                    matrix[row][j] =s.charAt(len);
+                    len++;
+                    row++;
+
+                }
+            }
+            String str ="";
+            for(int i =0;i<numRows;i++){
+                for(int j = 0;j<row;j++) {
+                    if (matrix[j][i] != '\0'){
+                        str = str + matrix[j][i];
+                    }
+                }
+            }
+            return  str;
+        }
+    }
+    }
+
+
+   Q9. Explain Encapsulation with an example. (Write at least 30-40 words).
+
+      Encapsulation is defined as the binding of state and its behavior,
+      hiding the data and details of object and only leaving the public interface to access.
+      It protects the data from  being accessed by code outside.
+      Example:
+        public class Course {
+       int courseId;
+       String courseName;
+       int maxCapacity;
+       int professorId;
+       public int getCourseId() {
+           return courseId;
+       }
+
+       public void setCourseId(int courseId) {
+           this.courseId = courseId;
+       }
+
+       public String getCourseName() {
+           return courseName;
+       }
+
+       public void setCourseName(String courseName) {
+           this.courseName = courseName;
+       }
+
+       public int getMaxCapacity() {
+           return maxCapacity;
+       }
+
+       public void setMaxCapacity(int maxCapacity) {
+           this.maxCapacity = maxCapacity;
+       }
+
+       public int getProfessorId() {
+           return professorId;
+       }
+
+       public void setProfessorId(int professorId) {
+           this.professorId = professorId;
+       }
+   }
+
+   If the code want to access the state in class Course,it must use the getter and setter method upside.
+
+     public static void main (String[] args){
+      Course course = new Course();
+       course.setCourseId(123);
+     }
+
+
+
+
+    Q10. What is the difference between Encapsulation and Abstraction
+
+    Encapsulation is the binding of data and the code operating it, used to hide the implementation details from users.
+    The main purpose of encapsulation is protecting the data from interface outside.
+    Abstraction is used to hide certain details and only show the essential features .
+    With the help of abstraction, it is able to build large system without increasing the complexity of code.
+
+
+    
+
+
+
+
+
